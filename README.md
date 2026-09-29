@@ -1,36 +1,64 @@
-# Random Password Generator
+# Python Password Generator
 
-A simple command-line Python script that generates a random password of a chosen minimum length. You can choose whether the password must include numbers and/or special characters.
+A lightweight, interactive command-line password generator written in Python. This tool generates secure, randomized passwords based on user-defined length and character set criteria (digits and special characters).
+
+---
 
 ## Features
 
-- Set a minimum password length
-- Optionally require at least one digit
-- Optionally require at least one special character
-- Always includes upper- and lowercase letters in the character pool
-- Guarantees the password meets your selected criteria before returning it
+- **Custom Length:** Define the minimum number of characters required for your password.
+- **Configurable Criteria:** Option to include or exclude numbers (`0-9`) and special characters/punctuation symbols (`!@#$%^&*...`).
+- **Guaranteed Criteria Matching:** Ensures that generated passwords strictly contain requested character types (numbers, special characters) before returning the result.
+- **Pure Standard Library:** No external dependencies required.
 
-## Usage
+---
 
-1. Save the script as `password_generator.py`.
-2. Run it from a terminal:
+## Installation & Setup
 
+1. **Clone the repository** (or download the script directly):
    ```bash
-   python password_generator.py
+   git clone https://github.com/your-username/password-generator.git
+   cd password-generator
    ```
 
-3. Answer the prompts:
+2. **Save the script** as `password_generator.py` (if creating manually).
 
-   ```
-   Enter the minimum length : 12
-   do you want to have numbers(y/n)?y
-   do you want to have special characters(y/n)?y
-   the generated password is : kT#9aQ!x2$mLpW
-   ```
+---
 
-## How It Works
+## How to Run
 
-1. **Build the character pool.** Starts with all letters (`a-z`, `A-Z`). Digits (`0-9`) and punctuation (`!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~`) are added depending on your choices.
-2. **Generate characters.** A loop picks random characters from the pool and appends them to the password.
-3. **Track requirements.** Flags (`has_number`, `has_special`) record whether a digit or special character has appeared.
-4. **Stop when satisfied.** The loop ends only when the password is at least `min_length` characters long **and** all selected requirements are met.
+Execute the script from your terminal or command prompt:
+
+```bash
+python password_generator.py
+```
+
+### Example Usage
+
+```text
+Enter the minimum length : 12
+do you want to have numbers(y/n)? y
+do you want to have special characters(y/n)? y
+the generated password is : k9#mP2$xL1!q
+```
+
+---
+
+## Code Overview
+
+- **`generate_password(min_length, number=True, special_characters=True)`**:
+  - Dynamically builds the pool of available characters using Python's `string` module (`ascii_letters`, `digits`, and `punctuation`).
+  - Iteratively picks characters at random using `random.choice()`.
+  - Validates that the output meets both the length threshold and all active criteria flags.
+
+---
+
+## Security Note
+
+This script uses Python's built-in `random` module, which is suitable for standard, general-purpose passwords. For cryptographically secure passwords used in production-grade authentication systems, consider swapping `random` with the [`secrets`](https://docs.python.org/3/library/secrets.html) module (`secrets.choice()`).
+
+---
+
+## License
+
+This project is open-source and available under the [MIT License](LICENSE).
